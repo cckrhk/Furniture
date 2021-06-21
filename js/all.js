@@ -22,6 +22,11 @@ function getProductList() {
         })
 }
 //產品列表原始畫面
+
+//function initial() {
+// getProductList();
+// getCartList();}
+
 function initial() {
     productData.forEach(function(item) {
         array(item);
@@ -30,11 +35,11 @@ function initial() {
 }
 //產品列表種類篩選
 productSelect.addEventListener('change', function(e) {
-    renderProductList(e.target.value);
+    selectProductList(e.target.value);
 
 });
 //產品列表渲染
-function renderProductList(select) {
+function selectProductList(select) {
     str = ``;
     productData.forEach(function(item) {
         if (select == item.category) {
@@ -61,6 +66,7 @@ getProductList();
 
 //購物車 加入
 productList.addEventListener('click', function(e) {
+    e.preventDefault();
     if (e.target.getAttribute("class") !== "addCardBtn") {
         return;
     }
@@ -84,6 +90,7 @@ productList.addEventListener('click', function(e) {
 });
 //購物車 刪除
 cartList.addEventListener('click', (e) => {
+        e.preventDefault();
         const deleteBtn = e.target.getAttribute("class");
         if (deleteBtn !== "material-icons") {
             return;
@@ -97,6 +104,7 @@ cartList.addEventListener('click', (e) => {
     })
     //購物車 清空
 cartSummary.addEventListener('click', (e) => {
+        e.preventDefault();
         const clearBtn = e.target.getAttribute("class")
         if (clearBtn !== "discardAllBtn") {
             return;
@@ -141,7 +149,7 @@ function getCartList() {
         })
 }
 
-//為何判斷式不能寫若cartData=空陣列//
+// 提交訂單//
 submit.addEventListener('click', (e) => {
     e.preventDefault();
     if (cartData == []) {
