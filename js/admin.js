@@ -7,7 +7,6 @@ const deleteAll = document.querySelector('.discardAllBtn');
 //初始化//
 function init() {
     getOrderList();
-    renderC3();
 }
 init();
 
