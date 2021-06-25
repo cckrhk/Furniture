@@ -13,45 +13,47 @@ let productData = [];
 let cartData = [];
 let str = ``;
 
+//產品列表原始畫面
+
+function initial() {
+    getProductList();
+    getCartList();
+}
+
+initial();
+
 //產品列表 
 function getProductList() {
     axios.get(`https://hexschoollivejs.herokuapp.com/api/livejs/v1/customer/${api_path}/products`)
         .then(function(response) {
             productData = response.data.products;
-            initial();
+            productData.forEach(function(item) {
+                renderProductList(item);
+            });
+            productList.innerHTML = str;
+
         })
 }
-//產品列表原始畫面
 
-//function initial() {
-// getProductList();
-// getCartList();}
-
-function initial() {
-    productData.forEach(function(item) {
-        array(item);
-    });
-    productList.innerHTML = str;
-}
 //產品列表種類篩選
 productSelect.addEventListener('change', function(e) {
     selectProductList(e.target.value);
 
 });
-//產品列表渲染
+//產品列表篩選
 function selectProductList(select) {
     str = ``;
     productData.forEach(function(item) {
         if (select == item.category) {
-            array(item);
+            renderProductList(item);
         } else if (select == '全部') {
-            array(item);
+            renderProductList(item);
         }
     });
     productList.innerHTML = str;
 };
 //產品項目累加
-function array(item) {
+function renderProductList(item) {
     str += `<li class="productCard">
             <h4 class="productType">新品</h4>
             <img src="${item.images}"></img>
@@ -62,7 +64,7 @@ function array(item) {
         </li>`;
     return;
 }
-getProductList();
+
 
 //購物車 加入
 productList.addEventListener('click', function(e) {
